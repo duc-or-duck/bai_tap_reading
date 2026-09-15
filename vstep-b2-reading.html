@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luyện thi VSTEP B2 - Reading (7 bộ đề)</title>
+<style>
+  :root{
+    --primary:#0d6e6e;
+    --primary-dark:#084f4f;
+    --primary-light:#e6f4f4;
+    --accent:#1f8a8a;
+    --green:#1b8f4c;
+    --green-bg:#e6f7ec;
+    --red:#c0392b;
+    --red-bg:#fdecea;
+    --border:#d7e5e5;
+    --text:#1f2d2d;
+    --muted:#5c6f6f;
+    --white:#ffffff;
+    --shadow:0 4px 14px rgba(13,110,110,0.12);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background:linear-gradient(180deg,#f2fbfb 0%, #ffffff 220px);
+    color:var(--text);
+    line-height:1.6;
+    padding-bottom:60px;
+  }
+  header{
+    background:linear-gradient(120deg,var(--primary-dark),var(--primary));
+    color:#fff;
+    padding:28px 18px 22px;
+    text-align:center;
+    box-shadow:var(--shadow);
+  }
+  header h1{margin:0 0 6px;font-size:1.6rem;}
+  header p{margin:0;opacity:.9;font-size:.95rem;}
+
+  .container{max-width:960px;margin:0 auto;padding:0 16px;}
+
+  .toolbar{
+    display:flex;justify-content:center;gap:12px;margin:18px 0;flex-wrap:wrap;
+  }
+  .btn{
+    border:none;border-radius:8px;padding:10px 18px;font-size:.95rem;font-weight:600;
+    cursor:pointer;transition:transform .15s ease, box-shadow .15s ease, background .2s ease;
+  }
+  .btn:active{transform:scale(0.97);}
+  .btn-primary{background:var(--primary);color:#fff;box-shadow:var(--shadow);}
+  .btn-primary:hover{background:var(--primary-dark);}
+  .btn-outline{background:#fff;color:var(--primary);border:2px solid var(--primary);}
+  .btn-outline:hover{background:var(--primary-light);}
+  .btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border);}
+  .btn-ghost:hover{background:#f2f2f2;}
+
+  .tabs{
+    display:flex;overflow-x:auto;gap:8px;padding:4px 0 10px;
+    scrollbar-width:thin;
+  }
+  .tabs::-webkit-scrollbar{height:6px;}
+  .tabs::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
+  .tab-btn{
+    flex:0 0 auto;
+    background:#fff;border:2px solid var(--border);color:var(--primary-dark);
+    padding:10px 16px;border-radius:999px;font-weight:600;font-size:.88rem;
+    cursor:pointer;white-space:nowrap;transition:all .2s ease;
+    position:relative;
+  }
+  .tab-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);}
+  .tab-btn .badge{
+    display:inline-block;margin-left:6px;background:var(--green);color:#fff;
+    font-size:.7rem;padding:1px 6px;border-radius:999px;
+  }
+  .tab-btn.active .badge{background:rgba(255,255,255,.3);}
+
+  .card{
+    background:#fff;border:1px solid var(--border);border-radius:14px;
+    padding:20px;margin-bottom:18px;box-shadow:var(--shadow);
+    animation:fadeIn .35s ease;
+  }
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+  .passage-title{color:var(--primary-dark);font-size:1.15rem;margin:0 0 10px;}
+  .passage-text{font-size:.97rem;text-align:justify;white-space:pre-line;color:#2b3939;}
+
+  .section-heading{
+    color:var(--primary-dark);font-size:1.05rem;margin:26px 0 12px;
+    border-left:4px solid var(--primary);padding-left:10px;
+  }
+
+  .question-block{
+    border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:14px;
+    background:#fbfffe;transition:box-shadow .2s ease;
+  }
+  .question-block.answered{box-shadow:0 0 0 1px var(--border) inset;}
+  .q-text{font-weight:600;margin-bottom:10px;font-size:.95rem;}
+  .options{display:flex;flex-direction:column;gap:8px;}
+  .option-label{
+    display:flex;align-items:flex-start;gap:9px;padding:9px 12px;border-radius:8px;
+    border:1px solid var(--border);cursor:pointer;font-size:.92rem;
+    transition:background .18s ease, border-color .18s ease, transform .1s ease;
+  }
+  .option-label:hover{background:var(--primary-light);}
+  .option-label input{margin-top:3px;accent-color:var(--primary);}
+  .option-label.correct{
+    background:var(--green-bg);border-color:var(--green);color:var(--green);
+    animation:pop .25s ease;
+  }
+  .option-label.wrong{
+    background:var(--red-bg);border-color:var(--red);color:var(--red);
+    animation:shake .3s ease;
+  }
+  .option-label.disabled{cursor:default;opacity:.9;}
+  @keyframes pop{0%{transform:scale(1);}50%{transform:scale(1.02);}100%{transform:scale(1);}}
+  @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-4px);}75%{transform:translateX(4px);}}
+
+  .explain{
+    margin-top:10px;padding:10px 12px;border-radius:8px;font-size:.88rem;
+    display:none;
+  }
+  .explain.show{display:block;animation:fadeIn .25s ease;}
+  .explain.ok{background:var(--green-bg);color:#0f5c31;border:1px solid var(--green);}
+  .explain.bad{background:var(--red-bg);color:#8a2a20;border:1px solid var(--red);}
+
+  table.vocab{
+    width:100%;border-collapse:collapse;font-size:.85rem;margin-top:8px;
+    overflow:hidden;border-radius:10px;
+  }
+  table.vocab thead th{
+    background:var(--primary);color:#fff;padding:9px 8px;text-align:left;font-weight:600;
+  }
+  table.vocab tbody td{
+    padding:8px;border-bottom:1px solid var(--border);vertical-align:top;
+  }
+  table.vocab tbody tr:nth-child(even){background:var(--primary-light);}
+  table.vocab .ipa{color:var(--accent);font-style:italic;white-space:nowrap;}
+  .vocab-wrap{overflow-x:auto;}
+
+  .exam-footer{
+    display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;align-items:center;justify-content:space-between;
+  }
+  .score-pill{
+    background:var(--primary-light);color:var(--primary-dark);padding:8px 14px;border-radius:999px;
+    font-weight:700;font-size:.9rem;
+  }
+
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(8,40,40,.55);display:none;
+    align-items:center;justify-content:center;z-index:50;padding:16px;
+  }
+  .modal-overlay.show{display:flex;}
+  .modal{
+    background:#fff;border-radius:14px;max-width:480px;width:100%;padding:24px;
+    box-shadow:0 12px 40px rgba(0,0,0,.25);animation:fadeIn .25s ease;
+  }
+  .modal h2{margin-top:0;color:var(--primary-dark);}
+  .modal ul{list-style:none;padding:0;margin:14px 0;}
+  .modal li{
+    display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed var(--border);
+    font-size:.92rem;
+  }
+  .modal .total{font-weight:700;font-size:1.05rem;color:var(--primary-dark);margin-top:10px;}
+  .modal-close{margin-top:16px;width:100%;}
+
+  footer.note{
+    text-align:center;color:var(--muted);font-size:.8rem;margin-top:30px;padding:0 16px;
+  }
+
+  @media(max-width:600px){
+    header h1{font-size:1.25rem;}
+    .card{padding:14px;}
+    .tab-btn{padding:8px 12px;font-size:.8rem;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🌿 Luyện thi VSTEP B2 — Kỹ năng Đọc (Reading)</h1>
+  <p>7 bộ đề theo chủ đề thường gặp · Trắc nghiệm có giải thích chi tiết · Từ vựng học thuật đầy đủ word family</p>
+</header>
+
+<div class="container">
+  <div class="toolbar">
+    <button class="btn btn-primary" id="btnTotalScore">📊 Xem điểm tổng</button>
+    <button class="btn btn-ghost" id="btnResetAll">♻️ Xóa toàn bộ tiến độ</button>
+  </div>
+
+  <div class="tabs" id="tabs"></div>
+  <div id="examArea"></div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h2>📊 Điểm tổng kết</h2>
+    <ul id="modalList"></ul>
+    <div class="total" id="modalTotal"></div>
+    <button class="btn btn-primary modal-close" id="modalClose">Đóng</button>
+  </div>
+</div>
+
+
+<script>
+/* ========================= DỮ LIỆU 7 BỘ ĐỀ ========================= */
+const exams = [
+{
+  id:"environment", topic:"Environment", vnTopic:"Môi trường",
+  title:"The Growing Threat of Plastic Pollution",
+  passage:`Plastic pollution has become one of the most pressing environmental challenges of the twenty-first century. Every year, millions of tonnes of plastic waste enter the world's oceans, posing a severe threat to marine ecosystems. Unlike organic materials, plastic does not decompose naturally; instead, it breaks down into smaller fragments known as microplastics, which can persist in the environment for centuries. These tiny particles have been found not only in the deepest parts of the ocean but also in the food we eat and the water we drink.
+
+The consequences of plastic pollution extend far beyond aesthetics. Marine animals frequently mistake plastic debris for food, leading to internal injuries, starvation, and death. Seabirds, turtles, and fish are among the species most severely affected. Furthermore, toxic chemicals released from degrading plastics can accumulate in the food chain, eventually reaching humans through seafood consumption. Scientists warn that if current trends continue unabated, the amount of plastic in the ocean could outweigh fish by 2050.
+
+In response to this crisis, governments and organisations worldwide have begun implementing measures to curb plastic production and consumption. Several countries have banned single-use plastic bags and straws, while others have introduced deposit schemes to encourage recycling. Meanwhile, innovative companies are developing biodegradable alternatives derived from plant-based materials, offering a promising substitute for conventional plastics.
+
+However, experts argue that legislation alone is insufficient to solve the problem. Genuine progress requires a fundamental shift in consumer behaviour, coupled with substantial investment in waste management infrastructure, particularly in developing nations where such systems are often inadequate. Without a coordinated global effort involving governments, businesses, and individuals alike, the battle against plastic pollution is unlikely to be won.
+
+Ultimately, tackling plastic pollution demands both immediate action and long-term commitment. Raising public awareness, promoting sustainable alternatives, and enforcing stricter regulations will be essential if future generations are to inherit oceans that are clean and thriving rather than choked with waste.`,
+  questions:[
+    { q:"What is the passage mainly about?",
+      options:["The history of plastic manufacturing","The dangers of plastic pollution and efforts to address it","The diet of marine animals","New laws in developing countries"],
+      correct:1,
+      explain:[
+        "Sai. Bài đọc không tập trung vào lịch sử sản xuất nhựa mà vào tác hại và giải pháp cho ô nhiễm nhựa.",
+        "Đúng. Toàn bài trình bày về mối đe dọa của ô nhiễm nhựa và các nỗ lực ứng phó, thể hiện rõ ở câu mở đầu: 'Plastic pollution has become one of the most pressing environmental challenges...'",
+        "Sai. Chế độ ăn của động vật biển chỉ là một chi tiết nhỏ, không phải ý chính.",
+        "Sai. Luật pháp chỉ là một phần nhỏ được đề cập, không phải nội dung chính của toàn bài."
+      ]
+    },
+    { q:"According to the passage, what happens to plastic instead of decomposing?",
+      options:["It dissolves in seawater","It breaks into microplastics that persist for centuries","It sinks immediately to the ocean floor","It gets converted into organic material"],
+      correct:1,
+      explain:[
+        "Sai. Bài không nói nhựa hòa tan trong nước biển.",
+        "Đúng. Câu 'it breaks down into smaller fragments known as microplastics, which can persist in the environment for centuries' xác nhận điều này.",
+        "Sai. Bài không đề cập việc nhựa chìm ngay xuống đáy đại dương.",
+        "Sai. Nhựa không phân hủy thành vật liệu hữu cơ theo bài đọc."
+      ]
+    },
+    { q:"What can be inferred about developing nations regarding plastic pollution?",
+      options:["They have the most advanced recycling systems","They are not affected by plastic pollution","They often lack adequate waste management infrastructure","They have banned all plastic products"],
+      correct:2,
+      explain:[
+        "Sai. Bài đọc cho thấy điều ngược lại — các nước đang phát triển thường thiếu hệ thống hiện đại.",
+        "Sai. Ô nhiễm nhựa là vấn đề toàn cầu, ảnh hưởng đến mọi khu vực.",
+        "Đúng. Câu 'particularly in developing nations where such systems are often inadequate' cho thấy các nước đang phát triển thường thiếu cơ sở hạ tầng xử lý rác thải phù hợp.",
+        "Sai. Bài không đề cập việc cấm hoàn toàn sản phẩm nhựa ở các nước này."
+      ]
+    },
+    { q:"The word \"curb\" in paragraph 3 is closest in meaning to:",
+      options:["increase","restrict","celebrate","ignore"],
+      correct:1,
+      explain:[
+        "Sai. 'Curb' mang nghĩa hạn chế, ngược nghĩa với 'increase'.",
+        "Đúng. Trong ngữ cảnh 'measures to curb plastic production', 'curb' nghĩa là hạn chế, kiềm chế — gần nghĩa với 'restrict'.",
+        "Sai. Không liên quan đến nghĩa của từ này.",
+        "Sai. 'Curb' không mang nghĩa bỏ qua."
+      ]
+    },
+    { q:"Why does the author mention the 2050 prediction about plastic outweighing fish?",
+      options:["To provide an interesting historical fact","To emphasize the urgency of the plastic pollution crisis","To criticize fishing industries","To describe marine biology research methods"],
+      correct:1,
+      explain:[
+        "Sai. Đây không phải là một sự kiện lịch sử mà là một dự báo cảnh báo.",
+        "Đúng. Dự báo 'plastic in the ocean could outweigh fish by 2050' được dùng để nhấn mạnh tính cấp bách của vấn đề, thúc đẩy hành động.",
+        "Sai. Bài không chỉ trích ngành đánh bắt cá.",
+        "Sai. Đây không phải là mô tả phương pháp nghiên cứu."
+      ]
+    }
+  ],
+  vocabulary:[
+    {word:"pollution", ipa:"/pəˈluːʃn/", noun:"pollution /pəˈluːʃn/", verb:"pollute /pəˈluːt/", adj:"polluted /pəˈluːtɪd/", adv:"—", meaning:"sự ô nhiễm"},
+    {word:"decompose", ipa:"/ˌdiːkəmˈpəʊz/", noun:"decomposition /ˌdiːkɒmpəˈzɪʃn/", verb:"decompose /ˌdiːkəmˈpəʊz/", adj:"decomposed /ˌdiːkəmˈpəʊzd/", adv:"—", meaning:"phân hủy"},
+    {word:"persist", ipa:"/pəˈsɪst/", noun:"persistence /pəˈsɪstəns/", verb:"persist /pəˈsɪst/", adj:"persistent /pəˈsɪstənt/", adv:"persistently /pəˈsɪstəntli/", meaning:"tồn tại dai dẳng"},
+    {word:"degrade", ipa:"/dɪˈɡreɪd/", noun:"degradation /ˌdeɡrəˈdeɪʃn/", verb:"degrade /dɪˈɡreɪd/", adj:"degradable /dɪˈɡreɪdəbl/", adv:"—", meaning:"phân hủy / làm suy thoái"},
+    {word:"consumption", ipa:"/kənˈsʌmpʃn/", noun:"consumption /kənˈsʌmpʃn/", verb:"consume /kənˈsjuːm/", adj:"consumable /kənˈsjuːməbl/", adv:"—", meaning:"sự tiêu thụ"},
+    {word:"legislation", ipa:"/ˌledʒɪsˈleɪʃn/", noun:"legislation /ˌledʒɪsˈleɪʃn/", verb:"legislate /ˈledʒɪsleɪt/", adj:"legislative /ˈledʒɪslətɪv/", adv:"legislatively /ˈledʒɪslətɪvli/", meaning:"luật pháp"},
+    {word:"infrastructure", ipa:"/ˈɪnfrəstrʌktʃə(r)/", noun:"infrastructure /ˈɪnfrəstrʌktʃə(r)/", verb:"—", adj:"infrastructural /ˌɪnfrəˈstrʌktʃərəl/", adv:"—", meaning:"cơ sở hạ tầng"},
+    {word:"sustainable", ipa:"/səˈsteɪnəbl/", noun:"sustainability /səˌsteɪnəˈbɪləti/", verb:"sustain /səˈsteɪn/", adj:"sustainable /səˈsteɪnəbl/", adv:"sustainably /səˈsteɪnəbli/", meaning:"bền vững"},
+    {word:"accumulate", ipa:"/əˈkjuːmjəleɪt/", noun:"accumulation /əˌkjuːmjəˈleɪʃn/", verb:"accumulate /əˈkjuːmjəleɪt/", adj:"accumulative /əˈkjuːmjələtɪv/", adv:"—", meaning:"tích lũy"}
+  ]
+},
+{
+  id:"technology", topic:"Technology", vnTopic:"Công nghệ",
+  title:"The Rise of Artificial Intelligence in Everyday Life",
+  passage:`Artificial intelligence (AI) has rapidly transformed from a futuristic concept into an integral part of daily life. From virtual assistants that manage our schedules to recommendation algorithms that suggest what to watch or buy, AI systems now influence countless decisions we make every day. This remarkable progress has been driven largely by advances in machine learning, a technique that enables computers to learn patterns from vast amounts of data without being explicitly programmed for every task.
+
+One of the most significant applications of AI lies in the healthcare sector. Machine learning algorithms can analyse medical images with a level of accuracy that rivals, and sometimes surpasses, human specialists, enabling earlier detection of diseases such as cancer. Similarly, in the field of transportation, self-driving vehicles rely on AI to interpret their surroundings and make split-second decisions, potentially reducing accidents caused by human error.
+
+Despite these benefits, the widespread adoption of AI has also raised considerable concerns. Critics argue that automation driven by AI could displace millions of workers, particularly in industries involving routine or repetitive tasks. There are also growing anxieties regarding privacy, as AI systems often require access to enormous quantities of personal data to function effectively. Furthermore, the opacity of some AI algorithms, often referred to as "black boxes", makes it difficult to understand how certain decisions are reached, raising questions about accountability and fairness.
+
+To address these challenges, policymakers and researchers are increasingly calling for robust regulatory frameworks that ensure AI is developed and deployed responsibly. Transparency, fairness, and human oversight are frequently cited as essential principles that should guide the future development of this technology.
+
+As AI continues to evolve at an unprecedented pace, striking the right balance between innovation and regulation will be crucial. Only through careful, deliberate governance can society fully harness the benefits of AI while mitigating its potential risks.`,
+  questions:[
+    { q:"What is the passage primarily discussing?",
+      options:["The history of computers","The benefits and challenges of AI in everyday life","How to build self-driving cars","Medical treatments for cancer"],
+      correct:1,
+      explain:[
+        "Sai. Bài không nói về lịch sử máy tính.",
+        "Đúng. Bài trình bày cả lợi ích và thách thức của AI trong đời sống, thể hiện xuyên suốt toàn bài.",
+        "Sai. Đây chỉ là một ví dụ nhỏ, không phải ý chính.",
+        "Sai. Đây không phải trọng tâm của bài."
+      ]
+    },
+    { q:"According to the passage, how do self-driving vehicles operate?",
+      options:["They use AI to interpret surroundings and make decisions","They are controlled remotely by human drivers","They rely solely on GPS systems","They cannot detect their environment"],
+      correct:0,
+      explain:[
+        "Đúng. Câu 'self-driving vehicles rely on AI to interpret their surroundings and make split-second decisions' xác nhận điều này.",
+        "Sai. Bài nói xe tự lái dựa vào AI, không phải con người điều khiển từ xa.",
+        "Sai. Bài không đề cập việc chỉ dựa vào GPS.",
+        "Sai. Ngược lại, xe tự lái có khả năng nhận biết môi trường xung quanh."
+      ]
+    },
+    { q:"What can be inferred about \"black box\" AI systems?",
+      options:["They are always safe and reliable","Their decision-making processes lack transparency","They are used exclusively in agriculture","They require no data to function"],
+      correct:1,
+      explain:[
+        "Sai. Bài đọc nói ngược lại — tính minh bạch của các hệ thống này bị nghi ngờ.",
+        "Đúng. Cụm từ 'black boxes' và câu 'makes it difficult to understand how certain decisions are reached' cho thấy thiếu minh bạch.",
+        "Sai. Không được đề cập trong bài.",
+        "Sai. AI cần lượng lớn dữ liệu để hoạt động."
+      ]
+    },
+    { q:"The word \"opacity\" in paragraph 3 most nearly means:",
+      options:["clarity","speed","lack of transparency","affordability"],
+      correct:2,
+      explain:[
+        "Sai. Trái nghĩa với 'opacity'.",
+        "Sai. Không liên quan.",
+        "Đúng. 'Opacity' nghĩa là tính không rõ ràng/thiếu minh bạch, phù hợp với ngữ cảnh 'black box'.",
+        "Sai. Không liên quan đến nghĩa của từ."
+      ]
+    },
+    { q:"Why does the author mention concerns about job displacement and privacy?",
+      options:["To argue that AI should be banned completely","To present a balanced view of AI's benefits and risks","To promote a specific AI company","To criticize healthcare workers"],
+      correct:1,
+      explain:[
+        "Sai. Bài không kêu gọi cấm AI hoàn toàn.",
+        "Đúng. Tác giả trình bày cả lợi ích (y tế, giao thông) và rủi ro (việc làm, quyền riêng tư) để đưa ra cái nhìn cân bằng.",
+        "Sai. Không quảng bá công ty nào.",
+        "Sai. Không chỉ trích nhân viên y tế."
+      ]
+    }
+  ],
+  vocabulary:[
+    {word:"artificial", ipa:"/ˌɑːtɪˈfɪʃl/", noun:"artificiality /ˌɑːtɪfɪʃiˈæləti/", verb:"—", adj:"artificial /ˌɑːtɪˈfɪʃl/", adv:"artificially /ˌɑːtɪˈfɪʃəli/", meaning:"nhân tạo"},
+    {word:"algorithm", ipa:"/ˈælɡərɪðəm/", noun:"algorithm /ˈælɡərɪðəm/", verb:"—", adj:"algorithmic /ˌælɡəˈrɪðmɪk/", adv:"algorithmically /ˌælɡəˈrɪðmɪkli/", meaning:"thuật toán"},
+    {word:"automation", ipa:"/ˌɔːtəˈmeɪʃn/", noun:"automation /ˌɔːtəˈmeɪʃn/", verb:"automate /ˈɔːtəmeɪt/", adj:"automated /ˈɔːtəmeɪtɪd/", adv:"automatically /ˌɔːtəˈmætɪkli/", meaning:"tự động hóa"},
+    {word:"accuracy", ipa:"/ˈækjərəsi/", noun:"accuracy /ˈækjərəsi/", verb:"—", adj:"accurate /ˈækjərət/", adv:"accurately /ˈækjərətli/", meaning:"độ chính xác"},
+    {word:"transparency", ipa:"/trænsˈpærənsi/", noun:"transparency /trænsˈpærənsi/", verb:"—", adj:"transparent /trænsˈpærənt/", adv:"transparently /trænsˈpærəntli/", meaning:"tính minh bạch"},
+    {word:"accountability", ipa:"/əˌkaʊntəˈbɪləti/", noun:"accountability /əˌkaʊntəˈbɪləti/", verb:"account /əˈkaʊnt/", adj:"accountable /əˈkaʊntəbl/", adv:"—", meaning:"trách nhiệm giải trình"},
+    {word:"regulation", ipa:"/ˌreɡjuˈleɪʃn/", noun:"regulation /ˌreɡjuˈleɪʃn/", verb:"regulate /ˈreɡjuleɪt/", adj:"regulatory /ˈreɡjulətəri/", adv:"—", meaning:"quy định"},
+    {word:"deploy", ipa:"/dɪˈplɔɪ/", noun:"deployment /dɪˈplɔɪmənt/", verb:"deploy /dɪˈplɔɪ/", adj:"deployable /dɪˈplɔɪəbl/", adv:"—", meaning:"triển khai"},
+    {word:"unprecedented", ipa:"/ʌnˈpresɪdentɪd/", noun:"precedent /ˈpresɪdənt/", verb:"—", adj:"unprecedented /ʌnˈpresɪdentɪd/", adv:"unprecedentedly /ʌnˈpresɪdentɪdli/", meaning:"chưa từng có"}
+  ]
+},
+{
+  id:"education", topic:"Education", vnTopic:"Giáo dục",
+  title:"The Shift Towards Online Learning",
+  passage:`Over the past decade, online learning has evolved from a niche alternative into a mainstream mode of education embraced by millions of students worldwide. This transformation accelerated dramatically during the global pandemic, when schools and universities were forced to close their doors and shift instruction to digital platforms almost overnight. While the transition initially posed significant challenges, it also revealed the remarkable potential of technology to make education more accessible and flexible.
+
+One of the primary advantages of online learning is its flexibility. Students can access course materials at any time and from virtually anywhere, enabling those with work or family commitments to pursue education without sacrificing other responsibilities. Additionally, online platforms often incorporate interactive elements such as quizzes, discussion forums, and multimedia content, which can enhance engagement and cater to diverse learning styles.
+
+Nevertheless, online learning is not without its drawbacks. Many educators express concern that the lack of face-to-face interaction diminishes the sense of community and collaboration that traditional classrooms foster. Students may also struggle with self-discipline and motivation when studying independently, particularly if they lack a structured routine. Moreover, unequal access to reliable internet connectivity and digital devices has exacerbated existing educational inequalities, disproportionately affecting students from low-income backgrounds.
+
+To mitigate these issues, many institutions have adopted a hybrid approach, blending online and in-person instruction to capture the benefits of both formats. Educators are also increasingly trained in pedagogical strategies specifically designed for virtual environments, aiming to foster genuine engagement despite the physical distance between teacher and student.
+
+As technology continues to advance, it seems likely that online learning will remain a permanent fixture of the educational landscape, rather than a temporary substitute born out of necessity. The challenge moving forward will be to ensure that its benefits are distributed equitably across all segments of society.`,
+  questions:[
+    { q:"What is the passage mainly about?",
+      options:["The complete replacement of traditional classrooms","The advantages, challenges, and future of online learning","How the pandemic began","Types of internet connections"],
+      correct:1,
+      explain:[
+        "Sai. Bài không nói học trực tuyến thay thế hoàn toàn lớp học truyền thống.",
+        "Đúng. Bài trình bày cả lợi ích, thách thức và tương lai của học trực tuyến.",
+        "Sai. Đây chỉ là bối cảnh dẫn nhập, không phải ý chính.",
+        "Sai. Không phải nội dung của bài."
+      ]
+    },
+    { q:"According to the passage, what is one advantage of online learning?",
+      options:["It requires no technology","It offers flexibility to access materials anytime and anywhere","It eliminates the need for teachers","It guarantees better grades"],
+      correct:1,
+      explain:[
+        "Sai. Bài đọc yêu cầu có công nghệ để học trực tuyến.",
+        "Đúng. Câu 'Students can access course materials at any time and from virtually anywhere' xác nhận tính linh hoạt là một lợi ích.",
+        "Sai. Bài không nói học trực tuyến loại bỏ vai trò giáo viên.",
+        "Sai. Không có cam kết nào về điểm số."
+      ]
+    },
+    { q:"What can be inferred about students from low-income backgrounds?",
+      options:["They benefit equally from online learning as wealthier students","They may face greater difficulty due to limited access to devices and internet","They prefer online learning over traditional classrooms","They are unaffected by digital inequality"],
+      correct:1,
+      explain:[
+        "Sai. Ngược lại, bài nói bất bình đẳng kỹ thuật số ảnh hưởng nặng nề hơn đến nhóm này.",
+        "Đúng. Câu 'disproportionately affecting students from low-income backgrounds' xác nhận điều này.",
+        "Sai. Không được đề cập.",
+        "Sai. Trái với nội dung bài."
+      ]
+    },
+    { q:"The word \"exacerbated\" in paragraph 3 is closest in meaning to:",
+      options:["reduced","worsened","resolved","ignored"],
+      correct:1,
+      explain:[
+        "Sai. Trái nghĩa.",
+        "Đúng. 'Exacerbated' nghĩa là làm trầm trọng thêm, phù hợp ngữ cảnh về bất bình đẳng giáo dục gia tăng.",
+        "Sai. Không đúng nghĩa.",
+        "Sai. Không liên quan."
+      ]
+    },
+    { q:"What is the author's main purpose in the final paragraph?",
+      options:["To predict that online learning will disappear soon","To suggest online learning will persist and call for equitable access","To criticize hybrid learning models","To describe how to use digital devices"],
+      correct:1,
+      explain:[
+        "Sai. Bài dự đoán ngược lại — học trực tuyến sẽ tiếp tục tồn tại.",
+        "Đúng. Đoạn cuối nhấn mạnh học trực tuyến sẽ là một phần cố định và kêu gọi đảm bảo công bằng trong tiếp cận.",
+        "Sai. Bài không chỉ trích mô hình hybrid.",
+        "Sai. Không phải nội dung đoạn cuối."
+      ]
+    }
+  ],
+  vocabulary:[
+    {word:"accessible", ipa:"/əkˈsesəbl/", noun:"accessibility /əkˌsesəˈbɪləti/", verb:"access /ˈækses/", adj:"accessible /əkˈsesəbl/", adv:"—", meaning:"dễ tiếp cận"},
+    {word:"flexibility", ipa:"/ˌfleksəˈbɪləti/", noun:"flexibility /ˌfleksəˈbɪləti/", verb:"flex /fleks/", adj:"flexible /ˈfleksəbl/", adv:"flexibly /ˈfleksəbli/", meaning:"tính linh hoạt"},
+    {word:"engagement", ipa:"/ɪnˈɡeɪdʒmənt/", noun:"engagement /ɪnˈɡeɪdʒmənt/", verb:"engage /ɪnˈɡeɪdʒ/", adj:"engaging /ɪnˈɡeɪdʒɪŋ/", adv:"—", meaning:"sự gắn kết, tham gia"},
+    {word:"collaboration", ipa:"/kəˌlæbəˈreɪʃn/", noun:"collaboration /kəˌlæbəˈreɪʃn/", verb:"collaborate /kəˈlæbəreɪt/", adj:"collaborative /kəˈlæbərətɪv/", adv:"collaboratively /kəˈlæbərətɪvli/", meaning:"sự hợp tác"},
+    {word:"discipline", ipa:"/ˈdɪsəplɪn/", noun:"discipline /ˈdɪsəplɪn/", verb:"discipline /ˈdɪsəplɪn/", adj:"disciplined /ˈdɪsəplɪnd/", adv:"—", meaning:"kỷ luật"},
+    {word:"inequality", ipa:"/ˌɪnɪˈkwɒləti/", noun:"inequality /ˌɪnɪˈkwɒləti/", verb:"—", adj:"unequal /ʌnˈiːkwəl/", adv:"unequally /ʌnˈiːkwəli/", meaning:"sự bất bình đẳng"},
+    {word:"hybrid", ipa:"/ˈhaɪbrɪd/", noun:"hybrid /ˈhaɪbrɪd/", verb:"hybridize /ˈhaɪbrɪdaɪz/", adj:"hybrid /ˈhaɪbrɪd/", adv:"—", meaning:"(mô hình) lai, kết hợp"},
+    {word:"pedagogical", ipa:"/ˌpedəˈɡɒdʒɪkl/", noun:"pedagogy /ˈpedəɡɒdʒi/", verb:"—", adj:"pedagogical /ˌpedəˈɡɒdʒɪkl/", adv:"pedagogically /ˌpedəˈɡɒdʒɪkli/", meaning:"thuộc về sư phạm"},
+    {word:"equitably", ipa:"/ˈekwɪtəbli/", noun:"equity /ˈekwəti/", verb:"—", adj:"equitable /ˈekwɪtəbl/", adv:"equitably /ˈekwɪtəbli/", meaning:"một cách công bằng"}
+  ]
+},
+{
+  id:"health", topic:"Health & Lifestyle", vnTopic:"Sức khỏe & Lối sống",
+  title:"The Importance of Sleep for Overall Well-being",
+  passage:`In an era characterised by relentless schedules and constant connectivity, sleep is often the first casualty of modern lifestyles. Many people view sleep as a luxury that can be sacrificed in favour of work, socialising, or entertainment. However, mounting scientific evidence suggests that adequate sleep is not a luxury but a fundamental pillar of physical and mental health, comparable in importance to diet and exercise.
+
+During sleep, the body undergoes essential restorative processes. Tissues repair themselves, hormones regulating growth and appetite are balanced, and the brain consolidates memories formed throughout the day. Chronic sleep deprivation, by contrast, has been linked to a wide range of adverse health outcomes, including obesity, cardiovascular disease, weakened immune function, and impaired cognitive performance. Furthermore, insufficient sleep significantly increases the risk of accidents, as reaction times and concentration deteriorate markedly when the body is deprived of adequate rest.
+
+The psychological consequences of poor sleep are equally concerning. Research has consistently demonstrated a strong correlation between sleep deprivation and mood disorders such as anxiety and depression. Sleep-deprived individuals often exhibit heightened irritability, reduced emotional resilience, and diminished capacity to cope with everyday stressors, creating a vicious cycle in which stress further disrupts sleep quality.
+
+Despite widespread awareness of these risks, many people continue to underestimate the value of sleep, often boasting about functioning on minimal rest as though it were a badge of honour. Sleep experts strongly caution against this mindset, emphasising that the body cannot be trained to require less sleep; rather, chronic sleep debt accumulates silently, exacting a toll that becomes increasingly apparent over time.
+
+To improve sleep quality, specialists recommend establishing a consistent sleep schedule, limiting exposure to screens before bedtime, and creating a calm, dark sleeping environment. Ultimately, prioritising sleep should be regarded not as an indulgence, but as an indispensable investment in long-term health and productivity.`,
+  questions:[
+    { q:"What is the passage mainly about?",
+      options:["How to treat insomnia medically","The significance of sleep for physical and mental health","The history of sleep research","Different types of exercise"],
+      correct:1,
+      explain:[
+        "Sai. Bài không đề cập điều trị y tế cho chứng mất ngủ.",
+        "Đúng. Toàn bài nhấn mạnh tầm quan trọng của giấc ngủ đối với sức khỏe thể chất và tinh thần.",
+        "Sai. Không phải trọng tâm bài.",
+        "Sai. Không liên quan đến nội dung bài."
+      ]
+    },
+    { q:"According to the passage, what happens to the brain during sleep?",
+      options:["It stops functioning completely","It consolidates memories formed during the day","It only processes visual information","It becomes more active than when awake"],
+      correct:1,
+      explain:[
+        "Sai. Trái với nội dung bài.",
+        "Đúng. Câu 'the brain consolidates memories formed throughout the day' xác nhận điều này.",
+        "Sai. Không được đề cập.",
+        "Sai. Không chính xác theo bài."
+      ]
+    },
+    { q:"What can be inferred about people who boast about functioning on little sleep?",
+      options:["They are likely underestimating the long-term risks of sleep deprivation","They have found a way to eliminate the need for sleep","They sleep more than the average person","They are following expert recommendations"],
+      correct:0,
+      explain:[
+        "Đúng. Đoạn văn cảnh báo rằng suy nghĩ này là sai lầm và hậu quả tích lũy âm thầm theo thời gian.",
+        "Sai. Bài khẳng định cơ thể không thể được huấn luyện để cần ít giấc ngủ hơn.",
+        "Sai. Không có thông tin này.",
+        "Sai. Ngược lại, họ phớt lờ khuyến nghị của chuyên gia."
+      ]
+    },
+    { q:"The phrase \"exacting a toll\" in paragraph 4 most nearly means:",
+      options:["providing a benefit","causing a negative cost or damage","improving performance","having no effect"],
+      correct:1,
+      explain:[
+        "Sai. Trái nghĩa.",
+        "Đúng. 'Exacting a toll' nghĩa là gây ra tổn hại/cái giá phải trả, phù hợp ngữ cảnh về nợ ngủ tích lũy.",
+        "Sai. Không đúng nghĩa.",
+        "Sai. Không liên quan."
+      ]
+    },
+    { q:"What is the author's main purpose in this passage?",
+      options:["To entertain readers with sleep-related anecdotes","To persuade readers of sleep's importance and encourage healthier habits","To criticize people who sleep too much","To promote a specific sleep medication"],
+      correct:1,
+      explain:[
+        "Sai. Bài không mang tính giải trí mà mang tính thuyết phục.",
+        "Đúng. Tác giả trình bày bằng chứng khoa học và khuyến nghị nhằm thuyết phục người đọc coi trọng giấc ngủ.",
+        "Sai. Bài không chỉ trích việc ngủ nhiều.",
+        "Sai. Không đề cập sản phẩm nào."
+      ]
+    }
+  ],
+  vocabulary:[
+    {word:"restorative", ipa:"/rɪˈstɔːrətɪv/", noun:"restoration /ˌrestəˈreɪʃn/", verb:"restore /rɪˈstɔː(r)/", adj:"restorative /rɪˈstɔːrətɪv/", adv:"—", meaning:"có tính phục hồi"},
+    {word:"deprivation", ipa:"/ˌdeprɪˈveɪʃn/", noun:"deprivation /ˌdeprɪˈveɪʃn/", verb:"deprive /dɪˈpraɪv/", adj:"deprived /dɪˈpraɪvd/", adv:"—", meaning:"sự thiếu hụt / tước đoạt"},
+    {word:"cardiovascular", ipa:"/ˌkɑːdiəʊˈvæskjələ(r)/", noun:"—", verb:"—", adj:"cardiovascular /ˌkɑːdiəʊˈvæskjələ(r)/", adv:"—", meaning:"thuộc tim mạch"},
+    {word:"cognitive", ipa:"/ˈkɒɡnətɪv/", noun:"cognition /kɒɡˈnɪʃn/", verb:"—", adj:"cognitive /ˈkɒɡnətɪv/", adv:"cognitively /ˈkɒɡnətɪvli/", meaning:"thuộc nhận thức"},
+    {word:"correlation", ipa:"/ˌkɒrəˈleɪʃn/", noun:"correlation /ˌkɒrəˈleɪʃn/", verb:"correlate /ˈkɒrəleɪt/", adj:"correlated /ˈkɒrəleɪtɪd/", adv:"—", meaning:"mối tương quan"},
+    {word:"resilience", ipa:"/rɪˈzɪliəns/", noun:"resilience /rɪˈzɪliəns/", verb:"—", adj:"resilient /rɪˈzɪliənt/", adv:"resiliently /rɪˈzɪliəntli/", meaning:"khả năng phục hồi"},
+    {word:"indulgence", ipa:"/ɪnˈdʌldʒəns/", noun:"indulgence /ɪnˈdʌldʒəns/", verb:"indulge /ɪnˈdʌldʒ/", adj:"indulgent /ɪnˈdʌldʒənt/", adv:"indulgently /ɪnˈdʌldʒəntli/", meaning:"sự nuông chiều"},
+    {word:"indispensable", ipa:"/ˌɪndɪˈspensəbl/", noun:"—", verb:"—", adj:"indispensable /ˌɪndɪˈspensəbl/", adv:"indispensably /ˌɪndɪˈspensəbli/", meaning:"không thể thiếu"},
+    {word:"consolidate", ipa:"/kənˈsɒlɪdeɪt/", noun:"consolidation /kənˌsɒlɪˈdeɪʃn/", verb:"consolidate /kənˈsɒlɪdeɪt/", adj:"consolidated /kənˈsɒlɪdeɪtɪd/", adv:"—", meaning:"củng cố"}
+  ]
+},
+{
+  id:"work", topic:"Work & Career", vnTopic:"Công việc & Sự nghiệp",
+  title:"The Emergence of Remote Work",
+  passage:`The concept of remote work, once considered a rare privilege reserved for a select few, has become an increasingly common feature of the modern professional landscape. Accelerated by advances in digital communication technology and further propelled by the global pandemic, remote work has fundamentally reshaped how organisations operate and how employees perceive the boundaries between their professional and personal lives.
+
+Proponents of remote work frequently highlight its numerous benefits. Employees often report greater autonomy over their schedules, eliminating lengthy commutes and allowing for a more favourable work-life balance. Employers, meanwhile, can benefit from reduced overhead costs associated with maintaining physical office spaces, while simultaneously gaining access to a broader talent pool unconstrained by geographical location.
+
+Nevertheless, the shift towards remote work has not been without its complications. Many managers express concern that physical distance can undermine team cohesion and hinder spontaneous collaboration, which often flourishes through casual, in-person interactions. Employees, too, report feelings of isolation and difficulty separating work from home life, particularly when household distractions blur the line between professional obligations and domestic responsibilities. Some studies suggest that remote workers, ironically, tend to work longer hours than their office-based counterparts, as the absence of a clear physical boundary between work and rest makes it more difficult to disconnect.
+
+In response to these challenges, many companies have adopted hybrid models that combine remote flexibility with periodic in-person collaboration, attempting to capture the advantages of both arrangements. Organisations are also investing in digital tools designed to facilitate communication and maintain a sense of connection among dispersed teams.
+
+As remote work continues to evolve, it is becoming increasingly clear that a one-size-fits-all approach is unlikely to suit every industry or individual. Instead, the future of work will likely be characterised by greater flexibility, with organisations tailoring their arrangements to the specific needs of their workforce and business objectives.`,
+  questions:[
+    { q:"What is the passage mainly about?",
+      options:["The complete decline of traditional offices","The benefits and challenges of remote work","How to reduce commuting costs","Digital communication technology history"],
+      correct:1,
+      explain:[
+        "Sai. Bài không khẳng định văn phòng truyền thống sẽ biến mất hoàn toàn.",
+        "Đúng. Bài trình bày cả lợi ích và thách thức của làm việc từ xa.",
+        "Sai. Đây chỉ là một lợi ích nhỏ được đề cập.",
+        "Sai. Không phải trọng tâm bài."
+      ]
+    },
+    { q:"According to the passage, what is one benefit for employers regarding remote work?",
+      options:["Reduced overhead costs and access to a broader talent pool","Guaranteed higher employee productivity","Elimination of the need for management","Increased office rental expenses"],
+      correct:0,
+      explain:[
+        "Đúng. Câu 'Employers... can benefit from reduced overhead costs... while simultaneously gaining access to a broader talent pool' xác nhận điều này.",
+        "Sai. Bài không cam kết năng suất cao hơn.",
+        "Sai. Không được đề cập.",
+        "Sai. Ngược lại, chi phí văn phòng giảm."
+      ]
+    },
+    { q:"What can be inferred about remote workers who struggle to \"disconnect\"?",
+      options:["They typically work fewer hours than office employees","They may work longer hours due to blurred work-life boundaries","They have no household responsibilities","They always prefer working in an office"],
+      correct:1,
+      explain:[
+        "Sai. Trái với nội dung bài.",
+        "Đúng. Câu 'the absence of a clear physical boundary between work and rest makes it more difficult to disconnect' cho thấy điều này.",
+        "Sai. Không được đề cập.",
+        "Sai. Không có căn cứ trong bài."
+      ]
+    },
+    { q:"The word \"cohesion\" in paragraph 3 is closest in meaning to:",
+      options:["division","unity","confusion","competition"],
+      correct:1,
+      explain:[
+        "Sai. Trái nghĩa.",
+        "Đúng. 'Cohesion' nghĩa là sự gắn kết/đoàn kết, phù hợp ngữ cảnh về sự gắn kết nhóm.",
+        "Sai. Không đúng nghĩa.",
+        "Sai. Không liên quan."
+      ]
+    },
+    { q:"What is the author's main purpose in the final paragraph?",
+      options:["To argue that remote work should be banned","To suggest that flexible, tailored approaches will define the future of work","To criticize hybrid work models","To describe the history of office buildings"],
+      correct:1,
+      explain:[
+        "Sai. Bài không kêu gọi cấm làm việc từ xa.",
+        "Đúng. Đoạn cuối nhấn mạnh tương lai công việc sẽ linh hoạt và phù hợp với nhu cầu riêng của từng tổ chức.",
+        "Sai. Bài không chỉ trích mô hình hybrid.",
+        "Sai. Không phải nội dung đoạn cuối."
+      ]
+    }
+  ],
+  vocabulary:[
+    {word:"autonomy", ipa:"/ɔːˈtɒnəmi/", noun:"autonomy /ɔːˈtɒnəmi/", verb:"—", adj:"autonomous /ɔːˈtɒnəməs/", adv:"autonomously /ɔːˈtɒnəməsli/", meaning:"quyền tự chủ"},
+    {word:"overhead", ipa:"/ˈəʊvəhed/", noun:"overhead /ˈəʊvəhed/", verb:"—", adj:"overhead /ˌəʊvəˈhed/", adv:"overhead /ˌəʊvəˈhed/", meaning:"chi phí chung"},
+    {word:"cohesion", ipa:"/kəʊˈhiːʒn/", noun:"cohesion /kəʊˈhiːʒn/", verb:"cohere /kəʊˈhɪə(r)/", adj:"cohesive /kəʊˈhiːsɪv/", adv:"cohesively /kəʊˈhiːsɪvli/", meaning:"sự gắn kết"},
+    {word:"isolation", ipa:"/ˌaɪsəˈleɪʃn/", noun:"isolation /ˌaɪsəˈleɪʃn/", verb:"isolate /ˈaɪsəleɪt/", adj:"isolated /ˈaɪsəleɪtɪd/", adv:"—", meaning:"sự cô lập"},
+    {word:"dispersed", ipa:"/dɪˈspɜːst/", noun:"dispersion /dɪˈspɜːʃn/", verb:"disperse /dɪˈspɜːs/", adj:"dispersed /dɪˈspɜːst/", adv:"—", meaning:"phân tán"},
+    {word:"tailor", ipa:"/ˈteɪlə(r)/", noun:"tailor /ˈteɪlə(r)/", verb:"tailor /ˈteɪlə(r)/", adj:"tailored /ˈteɪləd/", adv:"—", meaning:"điều chỉnh cho phù hợp"},
+    {word:"propel", ipa:"/prəˈpel/", noun:"propulsion /prəˈpʌlʃn/", verb:"propel /prəˈpel/", adj:"—", adv:"—", meaning:"thúc đẩy"},
+    {word:"undermine", ipa:"/ˌʌndəˈmaɪn/", noun:"—", verb:"undermine /ˌʌndəˈmaɪn/", adj:"—", adv:"—", meaning:"làm suy yếu"},
+    {word:"spontaneous", ipa:"/spɒnˈteɪniəs/", noun:"spontaneity /ˌspɒntəˈneɪəti/", verb:"—", adj:"spontaneous /spɒnˈteɪniəs/", adv:"spontaneously /spɒnˈteɪniəsli/", meaning:"tự phát"}
+  ]
+},
+{
+  id:"travel", topic:"Travel & Culture", vnTopic:"Du lịch & Văn hóa",
+  title:"The Impact of Tourism on Local Communities",
+  passage:`Tourism has long been regarded as a powerful engine of economic growth, generating employment and revenue for countless communities around the world. From bustling metropolises to remote rural villages, destinations that attract visitors often experience significant improvements in infrastructure, ranging from transportation networks to healthcare facilities. However, as global travel has become increasingly accessible, the phenomenon of overtourism has emerged as a pressing concern, prompting a re-evaluation of the true costs and benefits of tourism.
+
+Overtourism occurs when the volume of visitors exceeds a destination's capacity to accommodate them sustainably, resulting in overcrowding, environmental degradation, and diminished quality of life for local residents. Iconic destinations such as Venice, Bali, and Machu Picchu have all grappled with the adverse effects of excessive visitor numbers, including strained infrastructure, rising living costs, and the erosion of authentic cultural experiences as destinations become increasingly commercialised to cater to tourist expectations.
+
+Local communities often find themselves caught between conflicting interests. While tourism provides essential income, it can simultaneously displace residents from their own neighbourhoods as property prices soar and traditional housing is converted into short-term rentals. Moreover, the cultural authenticity that initially attracted visitors can gradually erode, as local traditions are commodified and reshaped to satisfy tourist demand rather than to preserve genuine heritage.
+
+In response to these challenges, some destinations have begun implementing measures to promote sustainable tourism. Strategies include capping the number of daily visitors, introducing tourist taxes to fund conservation efforts, and encouraging travellers to explore lesser-known destinations to alleviate pressure on overcrowded hotspots. Additionally, community-based tourism initiatives, which directly involve local residents in decision-making processes, have gained traction as a means of ensuring that the benefits of tourism are distributed more equitably.
+
+Ultimately, achieving a sustainable balance between economic development and cultural preservation requires careful, deliberate planning. Without such measures, the very attractions that draw tourists in the first place risk being irrevocably diminished.`,
+  questions:[
+    { q:"What is the passage mainly about?",
+      options:["The history of famous tourist destinations","The economic and cultural impacts of tourism, including overtourism","How to become a tour guide","Types of transportation for tourists"],
+      correct:1,
+      explain:[
+        "Sai. Không phải trọng tâm của bài.",
+        "Đúng. Bài trình bày cả tác động kinh tế và văn hóa của du lịch, bao gồm hiện tượng quá tải du lịch.",
+        "Sai. Không liên quan đến nội dung bài.",
+        "Sai. Không phải trọng tâm bài."
+      ]
+    },
+    { q:"According to the passage, what is one consequence of overtourism mentioned in the text?",
+      options:["Decreased living costs for residents","Displacement of residents due to rising property prices","Improved cultural authenticity","Reduced number of visitors"],
+      correct:1,
+      explain:[
+        "Sai. Trái với nội dung bài.",
+        "Đúng. Câu 'it can simultaneously displace residents from their own neighbourhoods as property prices soar' xác nhận điều này.",
+        "Sai. Ngược lại, tính xác thực bị xói mòn.",
+        "Sai. Trái với hiện tượng quá tải du lịch."
+      ]
+    },
+    { q:"What can be inferred about community-based tourism initiatives?",
+      options:["They exclude local residents from decision-making","They aim to distribute tourism's benefits more fairly to locals","They have proven ineffective everywhere","They focus solely on increasing visitor numbers"],
+      correct:1,
+      explain:[
+        "Sai. Trái với nội dung bài.",
+        "Đúng. Câu 'directly involve local residents in decision-making processes... ensuring that the benefits of tourism are distributed more equitably' xác nhận điều này.",
+        "Sai. Không có căn cứ.",
+        "Sai. Không đúng theo bài."
+      ]
+    },
+    { q:"The word \"commodified\" in paragraph 3 most nearly means:",
+      options:["preserved authentically","turned into a product for commercial sale","forgotten entirely","legally protected"],
+      correct:1,
+      explain:[
+        "Sai. Trái nghĩa.",
+        "Đúng. 'Commodified' nghĩa là biến thành hàng hóa để kinh doanh, phù hợp ngữ cảnh về văn hóa bị thương mại hóa.",
+        "Sai. Không đúng nghĩa.",
+        "Sai. Không liên quan."
+      ]
+    },
+    { q:"What is the author's main purpose in the final paragraph?",
+      options:["To argue that tourism should be completely stopped","To emphasize the need for careful planning to balance development and preservation","To promote a specific travel destination","To describe the daily routine of tourists"],
+      correct:1,
+      explain:[
+        "Sai. Bài không kêu gọi dừng du lịch hoàn toàn.",
+        "Đúng. Đoạn cuối nhấn mạnh cần lập kế hoạch cẩn thận để cân bằng phát triển và bảo tồn.",
+        "Sai. Không quảng bá điểm đến cụ thể.",
+        "Sai. Không mô tả sinh hoạt của khách du lịch."
+      ]
+    }
+  ],
+  vocabulary:[
+    {word:"metropolis", ipa:"/məˈtrɒpəlɪs/", noun:"metropolis /məˈtrɒpəlɪs/", verb:"—", adj:"metropolitan /ˌmetrəˈpɒlɪtən/", adv:"—", meaning:"đô thị lớn"},
+    {word:"overcrowding", ipa:"/ˌəʊvəˈkraʊdɪŋ/", noun:"overcrowding /ˌəʊvəˈkraʊdɪŋ/", verb:"overcrowd /ˌəʊvəˈkraʊd/", adj:"overcrowded /ˌəʊvəˈkraʊdɪd/", adv:"—", meaning:"tình trạng quá tải"},
+    {word:"degradation", ipa:"/ˌdeɡrəˈdeɪʃn/", noun:"degradation /ˌdeɡrəˈdeɪʃn/", verb:"degrade /dɪˈɡreɪd/", adj:"degrading /dɪˈɡreɪdɪŋ/", adv:"—", meaning:"sự suy thoái"},
+    {word:"authenticity", ipa:"/ˌɔːθenˈtɪsəti/", noun:"authenticity /ˌɔːθenˈtɪsəti/", verb:"—", adj:"authentic /ɔːˈθentɪk/", adv:"authentically /ɔːˈθentɪkli/", meaning:"tính xác thực"},
+    {word:"commercialise", ipa:"/kəˈmɜːʃəlaɪz/", noun:"commercialisation /kəˌmɜːʃəlaɪˈzeɪʃn/", verb:"commercialise /kəˈmɜːʃəlaɪz/", adj:"commercial /kəˈmɜːʃl/", adv:"commercially /kəˈmɜːʃəli/", meaning:"thương mại hóa"},
+    {word:"displace", ipa:"/dɪsˈpleɪs/", noun:"displacement /dɪsˈpleɪsmənt/", verb:"displace /dɪsˈpleɪs/", adj:"displaced /dɪsˈpleɪst/", adv:"—", meaning:"buộc rời đi / thay thế"},
+    {word:"conservation", ipa:"/ˌkɒnsəˈveɪʃn/", noun:"conservation /ˌkɒnsəˈveɪʃn/", verb:"conserve /kənˈsɜːv/", adj:"conservational /ˌkɒnsəˈveɪʃənl/", adv:"—", meaning:"sự bảo tồn"},
+    {word:"alleviate", ipa:"/əˈliːvieɪt/", noun:"alleviation /əˌliːviˈeɪʃn/", verb:"alleviate /əˈliːvieɪt/", adj:"—", adv:"—", meaning:"làm giảm bớt"},
+    {word:"traction", ipa:"/ˈtrækʃn/", noun:"traction /ˈtrækʃn/", verb:"—", adj:"—", adv:"—", meaning:"sức hút, đà phát triển"}
+  ]
+},
+{
+  id:"society", topic:"Society & Family", vnTopic:"Xã hội & Gia đình",
+  title:"Changing Family Structures in Modern Society",
+  passage:`The structure of the family, long regarded as a fundamental building block of society, has undergone profound transformations over the past several decades. The traditional nuclear family, once considered the predominant model, now coexists alongside a diverse array of family arrangements, including single-parent households, blended families, and multigenerational homes, reflecting broader shifts in social attitudes, economic conditions, and cultural values.
+
+Several factors have contributed to this evolution. Rising rates of divorce and separation have led to an increase in single-parent households, while growing numbers of individuals are choosing to remarry, creating blended families composed of children from previous relationships. Meanwhile, economic pressures, particularly the soaring cost of housing, have prompted many young adults to remain in, or return to, their parents' homes well into adulthood, giving rise to multigenerational living arrangements that were once far less common in many Western societies.
+
+These shifting family structures carry significant implications for how individuals navigate their personal and professional lives. Single parents, for instance, often face considerable challenges in balancing caregiving responsibilities with employment, frequently relying on extended family networks or external childcare support. Blended families, meanwhile, must contend with the delicate task of integrating different family dynamics, sometimes requiring considerable adjustment from all parties involved.
+
+Despite the challenges associated with these evolving structures, many sociologists argue that diversity in family forms does not inherently undermine children's well-being. Research increasingly suggests that the quality of relationships within a family, characterised by stability, warmth, and consistent support, matters far more than the particular structure of the household itself.
+
+As societal attitudes continue to evolve, it seems likely that traditional definitions of family will continue to expand, encompassing an increasingly diverse range of arrangements. Rather than viewing this diversification as a decline in family values, many argue it should be understood as a natural adaptation to changing social and economic realities.`,
+  questions:[
+    { q:"What is the passage mainly about?",
+      options:["The decline of family values in modern society","The evolution and diversification of family structures","How to raise children successfully","The history of marriage laws"],
+      correct:1,
+      explain:[
+        "Sai. Bài không cho rằng đây là sự suy thoái giá trị gia đình.",
+        "Đúng. Bài trình bày sự đa dạng hóa và thay đổi cấu trúc gia đình trong xã hội hiện đại.",
+        "Sai. Không phải trọng tâm bài.",
+        "Sai. Không liên quan đến nội dung bài."
+      ]
+    },
+    { q:"According to the passage, what has contributed to the rise of multigenerational households?",
+      options:["Decreasing housing costs","Economic pressures such as rising housing costs","Government bans on single-parent families","A decline in the number of young adults"],
+      correct:1,
+      explain:[
+        "Sai. Trái với nội dung bài.",
+        "Đúng. Câu 'economic pressures, particularly the soaring cost of housing, have prompted many young adults to remain in... their parents' homes' xác nhận điều này.",
+        "Sai. Không được đề cập.",
+        "Sai. Không chính xác theo bài."
+      ]
+    },
+    { q:"What can be inferred about sociologists' views on family structure and children's well-being?",
+      options:["They believe only nuclear families produce well-adjusted children","They believe relationship quality matters more than family structure","They believe family structure has no relevance at all","They oppose all forms of blended families"],
+      correct:1,
+      explain:[
+        "Sai. Trái với nội dung bài.",
+        "Đúng. Câu 'the quality of relationships within a family... matters far more than the particular structure of the household itself' xác nhận điều này.",
+        "Sai. Không đúng theo bài.",
+        "Sai. Không có căn cứ trong bài."
+      ]
+    },
+    { q:"The word \"predominant\" in paragraph 1 is closest in meaning to:",
+      options:["rare","main or most common","illegal","temporary"],
+      correct:1,
+      explain:[
+        "Sai. Trái nghĩa.",
+        "Đúng. 'Predominant' nghĩa là chiếm ưu thế/phổ biến nhất, phù hợp ngữ cảnh về mô hình gia đình hạt nhân từng phổ biến nhất.",
+        "Sai. Không đúng nghĩa.",
+        "Sai. Không liên quan."
+      ]
+    },
+    { q:"What is the author's main purpose in the final paragraph?",
+      options:["To argue that family diversification represents a decline in values","To suggest that changing family structures reflect natural adaptation to social change","To criticize multigenerational households","To promote traditional nuclear families exclusively"],
+      correct:1,
+      explain:[
+        "Sai. Trái với quan điểm của tác giả.",
+        "Đúng. Đoạn cuối cho rằng sự đa dạng hóa gia đình là một sự thích nghi tự nhiên với thay đổi xã hội và kinh tế.",
+        "Sai. Bài không chỉ trích gia đình đa thế hệ.",
+        "Sai. Bài không cổ súy riêng cho gia đình hạt nhân."
+      ]
+    }
+  ],
+  vocabulary:[
+    {word:"nuclear", ipa:"/ˈnjuːkliə(r)/", noun:"nucleus /ˈnjuːkliəs/", verb:"—", adj:"nuclear /ˈnjuːkliə(r)/", adv:"—", meaning:"(gia đình) hạt nhân"},
+    {word:"multigenerational", ipa:"/ˌmʌltidʒenəˈreɪʃənl/", noun:"generation /ˌdʒenəˈreɪʃn/", verb:"—", adj:"multigenerational /ˌmʌltidʒenəˈreɪʃənl/", adv:"—", meaning:"đa thế hệ"},
+    {word:"predominant", ipa:"/prɪˈdɒmɪnənt/", noun:"predominance /prɪˈdɒmɪnəns/", verb:"predominate /prɪˈdɒmɪneɪt/", adj:"predominant /prɪˈdɒmɪnənt/", adv:"predominantly /prɪˈdɒmɪnəntli/", meaning:"chiếm ưu thế"},
+    {word:"diversify", ipa:"/daɪˈvɜːsɪfaɪ/", noun:"diversity /daɪˈvɜːsəti/", verb:"diversify /daɪˈvɜːsɪfaɪ/", adj:"diverse /daɪˈvɜːs/", adv:"diversely /daɪˈvɜːsli/", meaning:"đa dạng hóa"},
+    {word:"caregiving", ipa:"/ˈkeəɡɪvɪŋ/", noun:"caregiving /ˈkeəɡɪvɪŋ/", verb:"care /keə(r)/", adj:"—", adv:"—", meaning:"việc chăm sóc"},
+    {word:"integrate", ipa:"/ˈɪntɪɡreɪt/", noun:"integration /ˌɪntɪˈɡreɪʃn/", verb:"integrate /ˈɪntɪɡreɪt/", adj:"integrated /ˈɪntɪɡreɪtɪd/", adv:"—", meaning:"hòa nhập / tích hợp"},
+    {word:"stability", ipa:"/stəˈbɪləti/", noun:"stability /stəˈbɪləti/", verb:"stabilise /ˈsteɪbəlaɪz/", adj:"stable /ˈsteɪbl/", adv:"stably /ˈsteɪbli/", meaning:"sự ổn định"},
+    {word:"adaptation", ipa:"/ˌædæpˈteɪʃn/", noun:"adaptation /ˌædæpˈteɪʃn/", verb:"adapt /əˈdæpt/", adj:"adaptive /əˈdæptɪv/", adv:"—", meaning:"sự thích nghi"},
+    {word:"inherent", ipa:"/ɪnˈherənt/", noun:"—", verb:"—", adj:"inherent /ɪnˈherənt/", adv:"inherently /ɪnˈherəntli/", meaning:"vốn có"}
+  ]
+}
+];
+
+/* ========================= STATE & STORAGE ========================= */
+const STORAGE_KEY = "vstepB2ReadingProgress";
+let progress = loadProgress();
+let activeExamId = exams[0].id;
+
+function loadProgress(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return {};
+    return JSON.parse(raw);
+  }catch(e){ return {}; }
+}
+function saveProgress(){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(progress)); }catch(e){}
+}
+function getExamState(examId){
+  if(!progress[examId]){
+    progress[examId] = { answers:{} }; // {questionIndex: selectedOptionIndex}
+  }
+  return progress[examId];
+}
+
+/* ========================= RENDER TABS ========================= */
+function renderTabs(){
+  const tabsEl = document.getElementById("tabs");
+  tabsEl.innerHTML = "";
+  exams.forEach(exam=>{
+    const st = getExamState(exam.id);
+    const answeredCount = Object.keys(st.answers).length;
+    const btn = document.createElement("button");
+    btn.className = "tab-btn" + (exam.id===activeExamId ? " active" : "");
+    btn.innerHTML = exam.vnTopic + (answeredCount>0 ? ` <span class="badge">${answeredCount}/5</span>` : "");
+    btn.addEventListener("click", ()=>{
+      activeExamId = exam.id;
+      renderTabs();
+      renderExam();
+    });
+    tabsEl.appendChild(btn);
+  });
+}
+
+/* ========================= RENDER EXAM ========================= */
+function renderExam(){
+  const exam = exams.find(e=>e.id===activeExamId);
+  const state = getExamState(exam.id);
+  const area = document.getElementById("examArea");
+  area.innerHTML = "";
+
+  // Passage card
+  const passageCard = document.createElement("div");
+  passageCard.className = "card";
+  passageCard.innerHTML = `
+    <h2 class="passage-title">📖 ${exam.title}</h2>
+    <div class="passage-text">${escapeHtml(exam.passage)}</div>
+  `;
+  area.appendChild(passageCard);
+
+  // Questions card
+  const qCard = document.createElement("div");
+  qCard.className = "card";
+  qCard.innerHTML = `<h3 class="section-heading" style="margin-top:0;">✏️ Câu hỏi trắc nghiệm</h3>`;
+
+  exam.questions.forEach((q, qi)=>{
+    const answeredIdx = state.answers[qi];
+    const qBlock = document.createElement("div");
+    qBlock.className = "question-block" + (answeredIdx!==undefined ? " answered" : "");
+    qBlock.dataset.qi = qi;
+
+    let optsHtml = "";
+    q.options.forEach((opt, oi)=>{
+      let cls = "option-label";
+      if(answeredIdx!==undefined){
+        cls += " disabled";
+        if(oi===q.correct) cls += " correct";
+        else if(oi===answeredIdx) cls += " wrong";
+      }
+      optsHtml += `
+        <label class="${cls}" data-oi="${oi}">
+          <input type="radio" name="q_${exam.id}_${qi}" value="${oi}" ${answeredIdx!==undefined ? "disabled" : ""} ${answeredIdx===oi ? "checked" : ""}>
+          <span>${String.fromCharCode(65+oi)}. ${escapeHtml(opt)}</span>
+        </label>`;
+    });
+
+    let explainHtml = "";
+    if(answeredIdx!==undefined){
+      const isCorrect = answeredIdx===q.correct;
+      explainHtml = `<div class="explain show ${isCorrect?'ok':'bad'}">${isCorrect?'✅':'❌'} ${escapeHtml(q.explain[answeredIdx])}</div>`;
+      if(!isCorrect){
+        explainHtml += `<div class="explain show ok">✅ Đáp án đúng: ${String.fromCharCode(65+q.correct)}. ${escapeHtml(q.explain[q.correct])}</div>`;
+      }
+    }
+
+    qBlock.innerHTML = `
+      <div class="q-text">Câu ${qi+1}: ${escapeHtml(q.q)}</div>
+      <div class="options">${optsHtml}</div>
+      ${explainHtml}
+    `;
+    qCard.appendChild(qBlock);
+  });
+
+  // footer with score & buttons
+  const answeredTotal = Object.keys(state.answers).length;
+  const correctTotal = Object.entries(state.answers).filter(([qi,oi])=> exam.questions[qi].correct===oi).length;
+
+  const footer = document.createElement("div");
+  footer.className = "exam-footer";
+  footer.innerHTML = `
+    <span class="score-pill">Điểm bộ đề này: ${correctTotal}/5 (${answeredTotal}/5 đã làm)</span>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="btn btn-outline" id="btnCheckExam">✅ Kiểm tra</button>
+      <button class="btn btn-ghost" id="btnResetExam">♻️ Reset bộ đề</button>
+    </div>
+  `;
+  qCard.appendChild(footer);
+  area.appendChild(qCard);
+
+  // Vocabulary card
+  const vocabCard = document.createElement("div");
+  vocabCard.className = "card";
+  let rows = "";
+  exam.vocabulary.forEach(v=>{
+    rows += `
+      <tr>
+        <td><strong>${escapeHtml(v.word)}</strong><br><span class="ipa">${escapeHtml(v.ipa)}</span></td>
+        <td>${escapeHtml(v.noun)}</td>
+        <td>${escapeHtml(v.verb)}</td>
+        <td>${escapeHtml(v.adj)}</td>
+        <td>${escapeHtml(v.adv)}</td>
+        <td>${escapeHtml(v.meaning)}</td>
+      </tr>`;
+  });
+  vocabCard.innerHTML = `
+    <h3 class="section-heading" style="margin-top:0;">📚 Từ vựng học thuật (Word Family)</h3>
+    <div class="vocab-wrap">
+      <table class="vocab">
+        <thead>
+          <tr><th>Từ gốc / IPA</th><th>Danh từ (N)</th><th>Động từ (V)</th><th>Tính từ (Adj)</th><th>Trạng từ (Adv)</th><th>Nghĩa tiếng Việt</th></tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  `;
+  area.appendChild(vocabCard);
+
+  // Event: option select -> immediate feedback
+  qCard.querySelectorAll(".option-label").forEach(label=>{
+    label.addEventListener("click", function(){
+      const qBlock = this.closest(".question-block");
+      const qi = parseInt(qBlock.dataset.qi, 10);
+      const st = getExamState(exam.id);
+      if(st.answers[qi]!==undefined) return; // already answered
+      const oi = parseInt(this.dataset.oi, 10);
+      st.answers[qi] = oi;
+      saveProgress();
+      renderTabs();
+      renderExam();
+    });
+  });
+
+  document.getElementById("btnCheckExam").addEventListener("click", ()=>{
+    const st = getExamState(exam.id);
+    const unanswered = exam.questions.map((_,i)=>i).filter(i=> st.answers[i]===undefined);
+    if(unanswered.length>0){
+      alert(`Bạn còn ${unanswered.length} câu chưa trả lời: Câu ${unanswered.map(i=>i+1).join(", ")}. Hãy chọn đáp án cho tất cả các câu.`);
+      return;
+    }
+    const correct = Object.entries(st.answers).filter(([qi,oi])=> exam.questions[qi].correct===oi).length;
+    alert(`Kết quả bộ đề "${exam.vnTopic}": ${correct}/5 câu đúng.`);
+  });
+
+  document.getElementById("btnResetExam").addEventListener("click", ()=>{
+    if(!confirm(`Bạn có chắc muốn làm lại bộ đề "${exam.vnTopic}" từ đầu không?`)) return;
+    progress[exam.id] = { answers:{} };
+    saveProgress();
+    renderTabs();
+    renderExam();
+  });
+}
+
+function escapeHtml(str){
+  return String(str)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;");
+}
+
+/* ========================= TOTAL SCORE MODAL ========================= */
+function showTotalScore(){
+  const list = document.getElementById("modalList");
+  list.innerHTML = "";
+  let totalCorrect = 0, totalQuestions = 0;
+  exams.forEach(exam=>{
+    const st = getExamState(exam.id);
+    const correct = Object.entries(st.answers).filter(([qi,oi])=> exam.questions[qi].correct===oi).length;
+    const answered = Object.keys(st.answers).length;
+    totalCorrect += correct;
+    totalQuestions += exam.questions.length;
+    const li = document.createElement("li");
+    li.innerHTML = `<span>${exam.vnTopic}</span><span>${correct}/5 đúng (${answered}/5 đã làm)</span>`;
+    list.appendChild(li);
+  });
+  document.getElementById("modalTotal").textContent = `Tổng cộng: ${totalCorrect}/${totalQuestions} câu đúng`;
+  document.getElementById("modalOverlay").classList.add("show");
+}
+
+document.getElementById("btnTotalScore").addEventListener("click", showTotalScore);
+document.getElementById("modalClose").addEventListener("click", ()=>{
+  document.getElementById("modalOverlay").classList.remove("show");
+});
+document.getElementById("modalOverlay").addEventListener("click", (e)=>{
+  if(e.target.id==="modalOverlay") document.getElementById("modalOverlay").classList.remove("show");
+});
+
+document.getElementById("btnResetAll").addEventListener("click", ()=>{
+  if(!confirm("Bạn có chắc muốn xóa TOÀN BỘ tiến độ của cả 7 bộ đề không? Hành động này không thể hoàn tác.")) return;
+  progress = {};
+  saveProgress();
+  renderTabs();
+  renderExam();
+});
+
+/* ========================= INIT ========================= */
+renderTabs();
+renderExam();
+</script>
+</body>
+</html>
